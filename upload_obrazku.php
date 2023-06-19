@@ -3,39 +3,33 @@ include "database_connection.php";
 
 if(isset($_POST['submit'])) {
 
-    $countfiles = count($_FILES['files']['name']);
+    $pocet_obrazku = count($_FILES['files']['name']);
 
-
-
-    // Loop all files
-    for($i = 0; $i < $countfiles; $i++) {
+    for($i = 0; $i < $pocet_obrazku; $i++) {
 
         // File name
-        $filename = $_FILES['files']['name'][$i];
+        $nazev_souboru = $_FILES['files']['name'][$i];
 
         // Location
-        $target_file = './uploads/'.$filename;
+        $cilovy_soubor = './uploads/'.$nazev_souboru;
 
         // file extension
-        $file_extension = pathinfo(
-            $target_file, PATHINFO_EXTENSION);
+        $typ_souboru = pathinfo(
+            $cilovy_soubor, PATHINFO_EXTENSION);
 
-        $file_extension = strtolower($file_extension);
+        $typ_souboru = strtolower($typ_souboru);
 
         // Valid image extension
-        $valid_extension = array("png","jpeg","jpg");
+        $spravny_typ = array("png","jpeg","jpg");
 
-        if(in_array($file_extension, $valid_extension)) {
+        if(in_array($typ_souboru, $spravny_typ)) {
 
             // Upload file
             if(move_uploaded_file(
                 $_FILES['files']['tmp_name'][$i],
-                $target_file)
+                $cilovy_soubor)
             ) {
 
-                // Execute query
-                $statement->execute(
-                    array($filename,$target_file));
             }
         }
     }
@@ -59,46 +53,11 @@ if(isset($_POST['submit'])) {
 
 <form method='post' action=''
       enctype='multipart/form-data'>
-    <input type='file' name='files[]' multiple />
+    <input type='file' name='files[]' />
     <input type='submit' value='Submit' name='submit' />
 </form>
 
 <a href="view.php">|View Uploads|</a>
-</body>
-
-</html>
-
-view.php: Code to display the uploaded images.
-PHP
-<?php
-include "database_connection.php";
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content=
-    "width=device-width, initial-scale=1.0">
-</head>
-
-<body>
-<?php
-
-$stmt = $conn->prepare('select * from images');
-$stmt->execute();
-$imagelist = $stmt->fetchAll();
-
-foreach($imagelist as $image) {
-    ?>
-
-    <img src="<?=$image['image']?>"
-         title="<?=$image['name'] ?>"
-         width='200' height='200'>
-    <?php
-}
-?>
 </body>
 
 </html>
