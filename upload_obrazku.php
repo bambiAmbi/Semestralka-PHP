@@ -8,7 +8,6 @@ if(isset($_POST['submit'])) {
         $typ_souboru = pathinfo(
                 $cilovy_soubor, PATHINFO_EXTENSION);
         $typ_souboru = strtolower($typ_souboru);
-        var_dump($typ_souboru);
         $cilovy_soubor = './uploads/'.$id.'.'.$typ_souboru;
 
             // Upload file
