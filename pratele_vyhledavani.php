@@ -57,8 +57,8 @@ $id_uzivatele = htmlspecialchars($_SESSION['id_uzivatele']);
                             $id_pritele = htmlspecialchars($polozka['ID']);
                             $sql_pocet_oblibeneych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
                             $sql_pocet_rozkoukanych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
-                            $pocet_oblibenych= db->query($sql_pocet_oblibeneych);
-                            $pocet_rozkoukanych= db->query($sql_pocet_rozkoukanych);
+                            $pocet_oblibenych= $db->query($sql_pocet_oblibeneych);
+                            $pocet_rozkoukanych= $db->query($sql_pocet_rozkoukanych);
                             ?>
                             <tr>
                                 <td><?= htmlspecialchars($polozka['JMENO'])?></td>
