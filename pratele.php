@@ -65,11 +65,22 @@ $id_uzivatele = htmlspecialchars($_SESSION["id_uzivatele"]);
                     if($vysledek->rowCount() > 0) {
 
                         foreach ($vysledek as $polozka) {
+                            $id_pritele = htmlspecialchars($polozka['ID']);
+
+                            $sql_pocet_oblibeneych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
+                            $statement_oblibene = $db->prepare($sql_pocet_oblibeneych);
+                            $statement_oblibene->execute();
+                            $pocet_oblibenych = $statement_oblibene->fetchColumn();
+
+                            $sql_pocet_rozkoukanych = "SELECT COUNT(USER_ID) FROM `ROZKOUKANE` WHERE USER_ID=$id_pritele; ";
+                            $statement_rozkoukane = $db->prepare($sql_pocet_rozkoukanych);
+                            $statement_rozkoukane->execute();
+                            $pocet_rozkoukanych = $statement_rozkoukane->fetchColumn();
                             ?>
                             <tr>
                                 <td><?= htmlspecialchars($polozka['JMENO'])?></td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td><?php echo $pocet_rozkoukanych?></td>
+                                <td><?php echo $pocet_oblibenych?></td>
                                 <td>
                                     <form action="pridat_do_pratel.php" method="post">
                                         <input type="hidden" id="user_id" name="user_id" value=<?php echo $_SESSION['id_uzivatele']?>>
