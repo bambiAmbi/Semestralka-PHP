@@ -11,9 +11,7 @@ if(isset($_POST['submit'])) {
         $cilovy_soubor = './uploads/'.$id.'.'.$typ_souboru;
 
             // Upload file
-            move_uploaded_file(
-                $_FILES['files']['tmp_name'][0],
-                $cilovy_soubor);
+        move_uploaded_file($_FILES['files']['tmp_name'][0], $cilovy_soubor);
     }
 
     echo "File upload successfully";

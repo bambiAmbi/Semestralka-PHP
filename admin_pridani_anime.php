@@ -42,13 +42,32 @@ if($validni_jmeno && $validni_jp_jmeno && $validni_pocet_epizod && $validni_poce
     $validni_post = true;
 }
 if($validni_post) {
+    $sql_id = 'SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = "ambr00" AND TABLE_NAME = "ANIME"; ';
+    $vysledek = $db->query($sql_id);
+    $vybrane_id = $vysledek->fetch(PDO::FETCH_ASSOC);
+
+    $increment_id = $vybrane_id['AUTO_INCREMENT'];
+
+
+
+    $nazev_souboru = $_FILES['files']['name'];
+    $cilovy_soubor = './uploads/'.$nazev_souboru[0];
+    $typ_souboru = pathinfo(
+        $cilovy_soubor, PATHINFO_EXTENSION);
+    $typ_souboru = strtolower($typ_souboru);
+    $cilovy_soubor = './uploads/'.$increment_id.'.'.$typ_souboru;
+
+    // Upload file
+    move_uploaded_file($_FILES['files']['tmp_name'][0], $cilovy_soubor);
+
+
     $data = [
         'NAZEV_ENG' => htmlspecialchars($_POST["nazev_eng"]),
         'NAZEV_JP' => htmlspecialchars($_POST["nazev_jp"]),
         'POCET_EPIZOD' => htmlspecialchars($_POST["pocet_ep"]),
         'POCET_SERII' => htmlspecialchars($_POST["pocet_s"]),
         'POPIS' => htmlspecialchars($_POST["popis"]),
-        'OBRAZEK_CESTA' => htmlspecialchars($_POST["obrazek"])
+        'OBRAZEK_CESTA' => htmlspecialchars($cilovy_soubor)
 
     ];
 
@@ -93,7 +112,8 @@ if($validni_post) {
         <h2>Přidání anime</h2>
         <p>Zde můžete přidat anime, které právě vyšlo nebo nějaké, které není v databázi.</p>
 
-        <form method="post" action="">
+        <form method='post' action=''
+              enctype='multipart/form-data'>
         <div class="pridani">
             <div>
                 <label for="nazev_eng">Název v angličtině</label>
