@@ -197,6 +197,11 @@ if(isset($_POST['submit'])){
 
 
           <?php if (isset($_GET['id'])): ?>
+              <form method="post" action="odstraneni_anime.php">
+                  <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($id)?>">
+                  <input type="hidden" name="cesta" id="cesta" value="<?php echo htmlspecialchars($vybrane_anime['OBRAZEK_CESTA'])?>">
+                  <button>Odstranit</button>
+              </form>
           <form method='post' action=''
                 enctype='multipart/form-data'>
               <div class="pridani">
@@ -253,6 +258,7 @@ if(isset($_POST['submit'])){
                   </div>
               </div>
           </form>
+
           <?php endif; ?>
       </div>
 
