@@ -62,7 +62,7 @@ if($id_uzivatele != 14) {
 
             <div>
                 <label for="image">Název obrázku</label>
-                <input type='file' name='files[]' />
+                <input type='file' name='files[]' accept="image/png, image/jpeg" />
                 <input type='submit' value='Přidat' name='submit' />
 
             </div>
