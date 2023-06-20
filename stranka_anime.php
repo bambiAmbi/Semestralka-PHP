@@ -37,8 +37,9 @@ if(isset($_GET['id'])) {
     <div class="body">
         <h1><?= htmlspecialchars($vybrane_anime['NAZEV_ENG'])?></h1>
         <div class="sloupec">
-            <img src="<?= htmlspecialchars($vybrane_anime['OBRAZEK_CESTA'])?>">            <p>Pocet epizod: <?= htmlspecialchars($vybrane_anime['POCET_EPIZOD'])?></p>
-            <p><?= htmlspecialchars($vybrane_anime['POCET_SERII'])?></p>
+            <img src="<?= htmlspecialchars($vybrane_anime['OBRAZEK_CESTA'])?>">
+            <p>Pocet epizod: <?= htmlspecialchars($vybrane_anime['POCET_EPIZOD'])?></p>
+            <p>Počet serii:<?= htmlspecialchars($vybrane_anime['POCET_SERII'])?></p>
         </div>
         <div class="sloupec">
             <p>Název v japonštině: <?= htmlspecialchars($vybrane_anime['NAZEV_JP'])?></p>
