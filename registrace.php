@@ -57,10 +57,8 @@ if($validni_prihlaseni){
 
     $sql = 'INSERT INTO USER(JMENO, EMAIL, HASH_HESLO) VALUES(:JMENO, :EMAIL, :HASH_HESLO)';
     $statement = $db->prepare($sql);
-    $user = $vysledek->fetch(PDO::FETCH_ASSOC);
 
-
-    try {
+try {
     $statement->execute($data);
     header("Location: uspesna_registrace.html");
     exit;
