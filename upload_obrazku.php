@@ -1,41 +1,24 @@
 <?php
-include "database_connection.php";
 
 if(isset($_POST['submit'])) {
 
-    $pocet_obrazku = count($_FILES['files']['name']);
-
-    for($i = 0; $i < $pocet_obrazku; $i++) {
-
-        // File name
-        $nazev_souboru = $_FILES['files']['name'][$i];
-
-        // Location
-        $cilovy_soubor = './uploads/'.$nazev_souboru;
-
-        // file extension
+        $nazev_souboru = $_FILES['files']['name'];
+        $id = 5;
+        $cilovy_soubor = './uploads/'.$nazev_souboru[0];
         $typ_souboru = pathinfo(
-            $cilovy_soubor, PATHINFO_EXTENSION);
-
+                $cilovy_soubor, PATHINFO_EXTENSION);
         $typ_souboru = strtolower($typ_souboru);
-
-        // Valid image extension
-        $spravny_typ = array("png","jpeg","jpg");
-
-        if(in_array($typ_souboru, $spravny_typ)) {
+        var_dump($typ_souboru);
+        $cilovy_soubor = './uploads/'.$id.'.'.$typ_souboru;
 
             // Upload file
-            if(move_uploaded_file(
-                $_FILES['files']['tmp_name'][$i],
-                $cilovy_soubor)
-            ) {
-
-            }
-        }
+            move_uploaded_file(
+                $_FILES['files']['tmp_name'][0],
+                $cilovy_soubor);
     }
 
     echo "File upload successfully";
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,8 +39,6 @@ if(isset($_POST['submit'])) {
     <input type='file' name='files[]' />
     <input type='submit' value='Submit' name='submit' />
 </form>
-
-<a href="view.php">|View Uploads|</a>
 </body>
 
 </html>
