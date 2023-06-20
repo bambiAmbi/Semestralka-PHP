@@ -41,7 +41,7 @@ $vysledek_anime = $db->query($sql_anime);
             ?>
             <div class="karta">
                 <div class="obrazek">
-                    <?php echo '<img src="data:image/jpeg, image/png, image/jpg;base64,'.base64_encode( $vybrane_anime['OBRAZEK'] ).'"/>' ?>
+                    <img src="<?= htmlspecialchars($vybrane_anime['OBRAZEK_CESTA'])?>">
                 </div>
                 <div class="info">
                     <a href="stranka_anime.php?id=<?=htmlspecialchars($vybrane_anime['ID'])?>"><p class="nazev_a"><?php echo $vybrane_anime["NAZEV_ENG"] ?></p></a>
