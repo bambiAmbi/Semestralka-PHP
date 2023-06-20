@@ -44,8 +44,8 @@ $vysledek_anime = $db->query($sql_anime);
 
                 </div>
                 <div class="info">
-                    <a href="stranka_anime.php?id=<?=htmlspecialchars($vybrane_anime['ID'])?>"><p class="nazev_a"><?php echo htmlspecialchars($vybrane_anime["NAZEV_ENG"]) ?></p></a>
-                    <p class="nazev_j"><?php echo htmlspecialchars($vybrane_anime["NAZEV_JP"])?></p>
+                    <a href="stranka_anime.php?id=<?=htmlspecialchars($vybrane_anime['ID'])?>"><p class="nazev_a">Název: <?php echo htmlspecialchars($vybrane_anime["NAZEV_ENG"]) ?></p></a>
+                    <p class="nazev_j">JP: <?php echo htmlspecialchars($vybrane_anime["NAZEV_JP"])?></p>
                     <p class="pocet_d">Pocet epizod:<?php echo htmlspecialchars($vybrane_anime["POCET_EPIZOD"])?></p>
                     <p class="pocet_s">Počet serii:<?php echo htmlspecialchars($vybrane_anime["POCET_SERII"])?></p>
                 </div>
