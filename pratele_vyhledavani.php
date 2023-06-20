@@ -55,15 +55,21 @@ $id_uzivatele = htmlspecialchars($_SESSION['id_uzivatele']);
 
                         foreach ($vysledek as $polozka) {
                             $id_pritele = htmlspecialchars($polozka['ID']);
+
                             $sql_pocet_oblibeneych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
+                            $statement_oblibene = $db->prepare($sql_pocet_oblibeneych);
+                            $statement_oblibene->execute();
+                            $pocet_oblibenych = $statement_oblibene->fetchColumn();
+
                             $sql_pocet_rozkoukanych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
-                            $pocet_oblibenych= $db->query($sql_pocet_oblibeneych);
-                            $pocet_rozkoukanych= $db->query($sql_pocet_rozkoukanych);
+                            $statement_rozkoukane = $db->prepare($sql_pocet_rozkoukanych);
+                            $statement_rozkoukane->execute();
+                            $pocet_rozkoukanych = $statement_rozkoukane->fetchColumn();
                             ?>
                             <tr>
                                 <td><?= htmlspecialchars($polozka['JMENO'])?></td>
-                                <td><a href="pritel_rozkoukane.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>"><?= $pocet_oblibenych['COUNT(USER_ID)']?></a></td>
-                                <td><a href="pritel_oblibene.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>">0</a></td>
+                                <td><a href="pritel_rozkoukane.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>"><?php echo $pocet_oblibenych?></a></td>
+                                <td><a href="pritel_oblibene.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>"><?php echo $pocet_rozkoukanych?></a></td>
                                 <td>
                                     <form action="odebrat_pritele.php" method="post">
                                         <input type="hidden" id="user_id" name="user_id" value=<?php echo htmlspecialchars($_SESSION['id_uzivatele'])?>>
