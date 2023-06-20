@@ -54,10 +54,15 @@ $id_uzivatele = htmlspecialchars($_SESSION['id_uzivatele']);
                     if($vysledek->rowCount() > 0) {
 
                         foreach ($vysledek as $polozka) {
+                            $id_pritele = htmlspecialchars($polozka['ID']);
+                            $sql_pocet_oblibeneych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
+                            $sql_pocet_rozkoukanych = "SELECT COUNT(USER_ID) FROM `OBLIBENE` WHERE USER_ID=$id_pritele; ";
+                            $pocet_oblibenych= db->query($sql_pocet_oblibeneych);
+                            $pocet_rozkoukanych= db->query($sql_pocet_rozkoukanych);
                             ?>
                             <tr>
                                 <td><?= htmlspecialchars($polozka['JMENO'])?></td>
-                                <td><a href="pritel_rozkoukane.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>">0</a></td>
+                                <td><a href="pritel_rozkoukane.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>"><?= $pocet_oblibenych['COUNT(USER_ID)']?></a></td>
                                 <td><a href="pritel_oblibene.php?id=<?=htmlspecialchars($polozka['ID'])?>&jmeno=<?=htmlspecialchars($polozka['JMENO'])?>">0</a></td>
                                 <td>
                                     <form action="odebrat_pritele.php" method="post">
