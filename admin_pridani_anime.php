@@ -8,8 +8,6 @@ $validni_jp_jmeno = true;
 $validni_pocet_epizod = true;
 $validni_pocet_serii = true;
 $validni_popis_anime = true;
-$validni_obrazek = true;
-
 
 if($id_uzivatele != 14) {
     header("Location: index2.html");
@@ -29,11 +27,16 @@ if(isset($_POST['submit'])){
         $validni_pocet_epizod = false;
     }
 
-    if (empty($_POST["pocet_serii"])) {
+    if (empty($_POST["pocet_s"])) {
         $validni_pocet_serii = false;
-    } else if($_POST["pocet_serii"] <= 0) {
+    } else if($_POST["pocet_s"] <= 0) {
         $validni_pocet_serii = false;
     }
+
+    if (empty($_POST["popis"])) {
+        $validni_popis_anime = false;
+    }
+
 
 if($validni_jmeno && $validni_jp_jmeno && $validni_pocet_epizod && $validni_pocet_serii && $validni_popis_anime){
     $validni_post = true;
@@ -136,7 +139,7 @@ if($validni_post) {
 
             <div>
                 <label for="image">Název obrázku</label>
-                <input type='file' name='files[]' accept="image/png, image/jpeg" />
+                <input type='file' name='files[]' accept="image/png, image/jpeg" required/>
                 <input type='submit' value='Přidat' name='submit' />
 
             </div>
